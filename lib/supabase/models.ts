@@ -1,7 +1,7 @@
 export interface Board {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   color: string;
   user_id: string;
   created_at: string;
@@ -11,7 +11,7 @@ export interface Board {
 export interface Column {
   id: number;
   created_at: string;
-  board_id: number;
+  board_id: string;
   title: string;
   sort_order: number;
   user_id: string;
