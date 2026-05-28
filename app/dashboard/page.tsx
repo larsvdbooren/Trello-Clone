@@ -28,7 +28,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   const { user } = useUser();
   const { createBoard, boards, loading, error } = useBoards();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");

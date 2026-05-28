@@ -1,12 +1,22 @@
 "use client";
 
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
-import { AlignStartHorizontal, ArrowRightIcon } from "lucide-react";
+import {
+  AlignStartHorizontal,
+  ArrowLeft,
+  ArrowRightIcon,
+  MoreHorizontalIcon,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Navbar() {
+interface Props {
+  boardTitle?: string;
+  onEditBoard?: () => void;
+}
+
+export default function Navbar({ boardTitle, onEditBoard }: Props) {
   const { isSignedIn, user } = useUser();
   const pathname = usePathname();
 
@@ -27,6 +37,44 @@ export default function Navbar() {
 
           <div className="flex items-center space-x-2 sm:space-x-4">
             <UserButton />
+          </div>
+        </div>
+      </header>
+    );
+  }
+
+  if (isBoardPage) {
+    return (
+      <header className="bg-white border-b sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 sm:space-x-4 min-w-0"></div>
+            <Link
+              href="/dashboard"
+              className="flex items-center space-x-1 sm:space-x-2 text-gray-600 hover:text-gray-900 shrink-0"
+            >
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="hidden sm:inline">Back to dashboard</span>
+              <span className="hidden">Back</span>
+            </Link>
+            <div className="h-4 sm:h-6 w-px bg-gray-300 hidden sm:block"></div>
+            <div className="flex items-center space-x-1 sm:space-x-2 min-w-0">
+              <AlignStartHorizontal className="text-blue-600" />
+              <div className="text-lg items-center space-x-1 sm:space-x-2 min-w-0">
+                <span className="text-lg font-bold text-gray-900 truncate">
+                  {boardTitle}
+                </span>
+              </div>
+              {onEditBoard && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 w-7 shrink-0 p-0"
+                >
+                  <MoreHorizontalIcon />
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </header>
